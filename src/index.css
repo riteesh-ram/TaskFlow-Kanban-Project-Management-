@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 220 25% 97%;
+    --foreground: 220 15% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 15% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 15% 15%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 15% 25%;
+
+    --muted: 220 13% 91%;
+    --muted-foreground: 220 9% 46%;
+
+    --accent: 217 91% 95%;
+    --accent-foreground: 217 91% 30%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 220 13% 87%;
+    --input: 220 13% 87%;
+    --ring: 217 91% 60%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 240 10% 6%;
+    --foreground: 220 15% 96%;
+
+    --card: 240 10% 8%;
+    --card-foreground: 220 15% 96%;
+
+    --popover: 240 10% 8%;
+    --popover-foreground: 220 15% 96%;
+
+    --primary: 262 83% 66%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 10% 12%;
+    --secondary-foreground: 220 15% 96%;
+
+    --muted: 240 10% 16%;
+    --muted-foreground: 220 10% 70%;
+
+    --accent: 262 83% 16%;
+    --accent-foreground: 262 83% 80%;
+
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 10% 18%;
+    --input: 240 10% 18%;
+    --ring: 262 83% 66%;
+    --sidebar-background: 240 10% 8%;
+    --sidebar-foreground: 220 15% 96%;
+    --sidebar-primary: 262 83% 66%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 10% 12%;
+    --sidebar-accent-foreground: 220 15% 96%;
+    --sidebar-border: 240 10% 16%;
+    --sidebar-ring: 262 83% 66%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background-image: radial-gradient(ellipse at top, hsl(var(--accent)) 0%, transparent 60%), radial-gradient(ellipse at bottom, hsl(var(--secondary)) 0%, transparent 60%);
+  }
+}
+
+/* Smooth Kanban animations */
+@layer utilities {
+  /* Smooth card drag transition */
+  .kanban-card-transition {
+    transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 300ms cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1),
+                scale 300ms cubic-bezier(0.4, 0, 0.2, 1),
+                rotate 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Column visual enhancements */
+  .kanban-column-todo {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%);
+  }
+
+  .kanban-column-progress {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, rgba(245, 158, 11, 0.02) 100%);
+  }
+
+  .kanban-column-done {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(34, 197, 94, 0.02) 100%);
+  }
+
+  /* Smooth hover and active states */
+  .kanban-card-hover {
+    @apply hover:shadow-xl hover:-translate-y-1 active:scale-[0.98];
+  }
+
+  /* Dragging overlay effect */
+  @keyframes drag-pulse {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 8px rgba(139, 92, 246, 0);
+    }
+  }
+
+  .dragging-card {
+    animation: drag-pulse 1.5s ease-in-out infinite;
+  }
+}

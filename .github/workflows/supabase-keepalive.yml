@@ -12,11 +12,13 @@ jobs:
       - name: Ping Supabase to prevent project pausing
         run: |
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "apikey: $SUPABASE_ANON_KEY" \
             "$SUPABASE_URL/auth/v1/health")
           echo "Supabase responded with HTTP $STATUS"
-          if [ "$STATUS" -ge 400 ]; then
+          if [ "$STATUS" -ne 200 ]; then
             echo "Warning: unexpected status $STATUS"
             exit 1
           fi
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
